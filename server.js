@@ -1,36 +1,13 @@
 const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-const directoryPath = path.join(__dirname, 'public');
-
-
-app.use(express.static(directoryPath));
-
-
+// Обработчик для корневого URL
 app.get('/', (req, res) => {
-    res.sendFile(path.join(directoryPath, 'login.html'));
+    res.send('Welcome to Notes Service');
 });
 
-
-app.post('/login', (req, res) => {
-
-    const { username, password } = req.body;
-
-    if (username === 'admin' && password === 'password') {
-        res.redirect('/notes'); 
-    } else {
-        res.status(401).send('Unauthorized'); 
-    }
-});
-
-
+// Запускаем сервер
 app.listen(PORT, () => {
-    console.log(`Authentication Service is running on http://localhost:${PORT}`);
+    console.log(`Notes Service is running on http://localhost:${PORT}`);
 });
